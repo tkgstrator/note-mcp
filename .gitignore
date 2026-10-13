@@ -1,0 +1,9 @@
+cookies.txt
+*.cookies.txt
+.env
+.env.*
+.codex/
+node_modules
+dist
+*.bun-build
+.*.bun-build

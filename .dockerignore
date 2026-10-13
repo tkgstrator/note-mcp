@@ -1,0 +1,12 @@
+.git
+.github
+.codex
+node_modules
+dist
+cookies.txt
+*.cookies.txt
+.env
+.env.*
+*.bun-build
+tests
+README.md

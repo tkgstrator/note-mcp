@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    # ubuntu-latest が課金等で起動しない環境では、リポジトリ変数 RUNNER_LABEL
+    # (例: self-hosted) を設定すると切り替わる。既定は ubuntu-latest。
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun test
+      - run: bun run build
+      - run: timeout 45 bun run smoke
+      - run: timeout 45 bun run smoke -- --binary
